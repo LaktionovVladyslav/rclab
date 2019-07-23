@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 from selenium import webdriver
 import requests
+from selenium.webdriver import DesiredCapabilities
 
 from connector import Theme, session
 
@@ -56,7 +57,13 @@ def get_links():
 
 
 themes = session.query(Theme).all()
-driver = webdriver.Firefox('/usr/local/Cellar/geckodriver/0.24.0/bin/')
+options = webdriver.ChromeOptions()
+desired_capabilities = DesiredCapabilities.CHROME.copy()
+# options.add_argument('--headless')
+# options.add_argument('--disable-gpu')
+# options.add_argument('--disable-dev-shm-usage')
+# options.add_argument('--no-sandbox')
+driver = webdriver.Chrome(options=options)
 
 for theme in themes:
     if theme.author:
