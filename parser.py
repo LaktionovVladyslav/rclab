@@ -1,4 +1,5 @@
 import requests
+import selenium
 from bs4 import BeautifulSoup
 
 cookies = {
@@ -42,6 +43,8 @@ data = {
 response = requests.post('https://bigbro.biz/advstats/bulk-update', headers=headers, cookies=cookies, data=data)
 html = response.text
 print(html)
-# soup = BeautifulSoup(html, 'html.parser')
-# links = [link.get('href') for link in soup.find_all('a')]
-# print(links)
+from seleniumrequests import Firefox
+
+webdriver = Firefox()
+response = webdriver.request('POST', 'https://bigbro.biz/advstats/bulk-update', headers=headers, cookies=cookies, data=data)
+print(response.content)
